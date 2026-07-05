@@ -1,0 +1,91 @@
+local quiz_data = require "main.quiz_data"
+
+local function show_question(self)
+	local song_num = math.random(#self.quiz_bank)
+	self.answer_title = self.quiz_bank[song_num].title
+	
+	local idx = math.random(#self.quiz_bank[song_num].lyrics - 1)
+	-- idx = 16 -- 最長のテキストのidx番号(デバッグ用)
+	local lyrics_text = self.quiz_bank[song_num].lyrics[idx] .. "\n" .. self.quiz_bank[song_num].lyrics[idx + 1]
+
+	-- answer を作る
+	local used = {} -- 既出の数値を記録するテーブル
+	local results = {}
+	local count = 0
+
+	while count < #self.quiz_bank do
+		local randNum = math.random(1, #self.quiz_bank)
+
+		-- まだ選ばれていない数値の場合のみ採用
+		if not used[randNum] then
+			used[randNum] = true
+			table.insert(results, randNum)
+			count = count + 1
+		end
+	end
+
+	-- 結果の確認(デバッグ用)
+	-- for i, v in ipairs(results) do print(v) end
+
+	gui.set_text(self.lyrics_node, lyrics_text)
+	
+	for i = 1, #self.quiz_bank do
+		gui.set_text(self.answers_node[i], self.quiz_bank[results[i]].title)
+	end
+	-- print(self.answer_title) -- 答えを表示(デバッグ用)
+end
+
+local function update_streak(self)
+	local streak_text = "連続正解数: " .. self.streak
+	gui.set_text(self.streak_node, streak_text)
+end
+
+local function trigger_flash(self)
+	-- まずノードのアルファ値（不透明度）を 0.6（少し透ける赤）にする
+	gui.set_color(self.flash_node, vmath.vector4(1, 0, 0, 0.6))
+	-- 0.3秒かけてアルファ値を0（完全に透明）にアニメーションさせる
+	gui.animate(self.flash_node,	"color.w", 0, gui.EASING_OUTQUAD, 0.3, 0)
+end
+
+function init(self)
+	self.lyrics_node = gui.get_node("lyrics_text")
+	self.streak_node = gui.get_node("streak")
+	self.flash_node = gui.get_node("flash_panel")
+	self.answers_node = {
+		gui.get_node("answer-1"),
+		gui.get_node("answer-2"),
+		gui.get_node("answer-3"),
+		gui.get_node("answer-4")
+	}
+
+	self.quiz_bank = quiz_data.bank
+
+	self.streak = 0
+	update_streak(self)
+	
+	show_question(self)
+end
+
+
+-- 画面上のどこかがタップ/クリックされたときの処理（選択肢の判定など）
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.released then
+
+		for i = 1, 4 do
+			-- タップされた座標 (action.x, action.y) が、選択肢ノードの範囲内か判定
+			if gui.pick_node(self.answers_node[i], action.x, action.y) then
+				local selected_title = gui.get_text(self.answers_node[i])
+				-- 正解判定
+				if selected_title == self.answer_title then
+					self.streak = self.streak + 1
+					show_question(self)
+				else
+					trigger_flash(self)
+					self.streak = 0
+				end
+				update_streak(self)
+				break -- いずれかの選択肢がタップされたらループを抜ける
+			end
+		end
+	end
+end

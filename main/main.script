@@ -1,0 +1,5 @@
+function init(self)
+	math.randomseed(os.time())
+	
+	msg.post(".", "acquire_input_focus")
+end

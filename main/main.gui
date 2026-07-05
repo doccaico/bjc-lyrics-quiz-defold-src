@@ -1,0 +1,179 @@
+script: "/main/main.gui_script"
+fonts {
+  name: "NotoSansJP-Regular"
+  font: "/assets/NotoSansJP-Regular.font"
+}
+nodes {
+  position {
+    x: 305.0
+    y: 854.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "lyrics_text"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 305.0
+    y: 1070.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "streak"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 320.0
+    y: 568.0
+  }
+  size {
+    x: 640.0
+    y: 1136.0
+  }
+  color {
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "flash_panel"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  alpha: 0.0
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 320.0
+    y: 368.0
+  }
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  color {
+    x: 0.15686275
+    y: 0.15686275
+    z: 0.19607843
+  }
+  type: TYPE_BOX
+  id: "btn-1"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "answer-1"
+  parent: "btn-1"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 320.0
+    y: 262.0
+  }
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  color {
+    x: 0.15686275
+    y: 0.15686275
+    z: 0.19607843
+  }
+  type: TYPE_BOX
+  id: "btn-2"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "answer-2"
+  parent: "btn-2"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 320.0
+    y: 156.0
+  }
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  color {
+    x: 0.15686275
+    y: 0.15686275
+    z: 0.19607843
+  }
+  type: TYPE_BOX
+  id: "btn-3"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "answer-3"
+  parent: "btn-3"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 320.0
+    y: 50.0
+  }
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  color {
+    x: 0.15686275
+    y: 0.15686275
+    z: 0.19607843
+  }
+  type: TYPE_BOX
+  id: "btn-4"
+  adjust_mode: ADJUST_MODE_STRETCH
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 640.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "answer-4"
+  parent: "btn-4"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
