@@ -5,34 +5,55 @@ local function show_question(self)
 	self.answer_title = self.quiz_bank[song_num].title
 	
 	local idx = math.random(#self.quiz_bank[song_num].lyrics - 1)
-	-- idx = 16 -- 最長のテキストのidx番号(デバッグ用)
+	-- idx = 4 -- 最長のテキストのidx番号(デバッグ用)
 	local lyrics_text = self.quiz_bank[song_num].lyrics[idx] .. "\n" .. self.quiz_bank[song_num].lyrics[idx + 1]
 
-	-- answer を作る
+	-- answerを作る
 	local used = {} -- 既出の数値を記録するテーブル
 	local results = {}
 	local count = 0
 
-	while count < #self.quiz_bank do
-		local randNum = math.random(1, #self.quiz_bank)
-
+	while count < 4 do
+		local rand_num = math.random(1, #self.quiz_bank)
 		-- まだ選ばれていない数値の場合のみ採用
-		if not used[randNum] then
-			used[randNum] = true
-			table.insert(results, randNum)
+		if not used[rand_num] then
+			used[rand_num] = true
+			table.insert(results, rand_num)
 			count = count + 1
 		end
 	end
 
 	-- 結果の確認(デバッグ用)
 	-- for i, v in ipairs(results) do print(v) end
+	
+	-- 上で作成した配列に答えランダムな位置に混ぜる
+	local answer_idx = math.random(4)
 
+	local found = false
+	for _, v in ipairs(results) do
+		if v == song_num then
+			found = true
+			break
+		end
+	end
+	
+	if not found then
+		table.remove(results, answer_idx)
+		if answer_idx == 4 then
+			table.insert(results, song_num)
+		else
+			table.insert(results, answer_idx, song_num)
+		end
+	end
+
+	gui.set_text(self.number_of_songs_node, "収録曲数: " .. #self.quiz_bank)
 	gui.set_text(self.lyrics_node, lyrics_text)
 	
-	for i = 1, #self.quiz_bank do
+	for i = 1, 4 do
 		gui.set_text(self.answers_node[i], self.quiz_bank[results[i]].title)
 	end
-	-- print(self.answer_title) -- 答えを表示(デバッグ用)
+
+	-- print("答え: " .. self.answer_title) -- 答えを表示(デバッグ用)
 end
 
 local function update_streak(self)
@@ -48,8 +69,9 @@ local function trigger_flash(self)
 end
 
 function init(self)
-	self.lyrics_node = gui.get_node("lyrics_text")
+	self.number_of_songs_node = gui.get_node("number_of_songs")
 	self.streak_node = gui.get_node("streak")
+	self.lyrics_node = gui.get_node("lyrics_text")
 	self.flash_node = gui.get_node("flash_panel")
 	self.answers_node = {
 		gui.get_node("answer-1"),

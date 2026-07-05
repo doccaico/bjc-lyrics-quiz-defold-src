@@ -5,8 +5,8 @@ fonts {
 }
 nodes {
   position {
-    x: 305.0
-    y: 854.0
+    x: 320.0
+    y: 756.0
   }
   size {
     x: 200.0
@@ -19,12 +19,12 @@ nodes {
 }
 nodes {
   position {
-    x: 305.0
-    y: 1070.0
+    x: 320.0
+    y: 470.0
   }
   size {
     x: 200.0
-    y: 100.0
+    y: 45.0
   }
   type: TYPE_TEXT
   font: "NotoSansJP-Regular"
@@ -173,6 +173,35 @@ nodes {
   font: "NotoSansJP-Regular"
   id: "answer-4"
   parent: "btn-4"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 320.0
+    y: 1044.0
+  }
+  size {
+    x: 200.0
+    y: 45.0
+  }
+  type: TYPE_TEXT
+  font: "NotoSansJP-Regular"
+  id: "number_of_songs"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 320.0
+    y: 1097.0
+  }
+  size {
+    x: 400.0
+    y: 45.0
+  }
+  type: TYPE_TEXT
+  text: "Blankey Jet City - Lyrics Quiz"
+  font: "NotoSansJP-Regular"
+  id: "title"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
