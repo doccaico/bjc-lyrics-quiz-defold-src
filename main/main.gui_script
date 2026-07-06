@@ -93,6 +93,15 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.released then
 
+		-- 現在のメモリー消費量を見る(デバッグビルド（Debug Build）でのみ動作します)
+		-- if profiler then
+		-- 	local mem_bytes = profiler.get_memory_usage()
+		-- 	local mem_mb = mem_bytes / 1024 / 1024
+		-- 	print(string.format("エンジンが実際に使用中のメモリ: %.2f MB", mem_mb))
+		-- else
+		-- 	print("プロファイラはデバッグビルドでのみ利用可能です")
+		-- end
+
 		for i = 1, 4 do
 			-- タップされた座標 (action.x, action.y) が、選択肢ノードの範囲内か判定
 			if gui.pick_node(self.answers_node[i], action.x, action.y) then
